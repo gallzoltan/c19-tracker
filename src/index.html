@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Covid-19 tracker</title>  
+</head>
+<body>
+  <div class="header">
+    <h2>Covid-19 tracker</h2>
+  </div>
+
+  <div class="search-bar">
+    <div class="form-container">
+      <form action="">
+        <div id="country" class="form-item">
+          <input type="text" placeholder="Ország">
+        </div>
+        <div id="date" class="form-item">
+          <input type="date">
+        </div>
+        <div class="horizontal-spacer"></div>
+        <div id="search" class="form-item">
+          <button type="submit">Keresés</button>
+        </div>
+      </form>
+    </div>    
+  </div>
+
+  <div class="content">
+    <div class="report-container">
+      <div class="report-item">
+        <report-card title="Fertőzöttek"></report-card>        
+      </div>
+      <div class="report-item">
+        <report-card title="Gyógyultak"></report-card>
+      </div>
+      <div class="report-item">
+        <report-card title="Elhunytak"></report-card>
+      </div>
+    </div>
+    <div class="chart-container">
+      <div class="c19-chart">
+        <canvas id="axes_line_chart"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="footer-container">
+      <p>@gallz</p>
+    </div>
+  </div>
+
+  <script src="bundle.js"></script>
+</body>
+</html>
