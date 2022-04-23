@@ -31,15 +31,18 @@
   <div class="content">
     <div class="report-container">
       <div class="report-item">
-        <report-card title="Fertőzöttek"></report-card>        
+        <report-card id="confirmed" title="Fertőzöttek száma"></report-card>        
       </div>
       <div class="report-item">
-        <report-card title="Gyógyultak"></report-card>
+        <report-card id="recovered" title="Gyógyultak száma"></report-card>
       </div>
       <div class="report-item">
-        <report-card title="Elhunytak"></report-card>
+        <report-card id="deaths" title="Elhunytak száma"></report-card>
       </div>
     </div>
+    
+    <div id="loading"></div>
+    
     <div class="chart-container">
       <div class="c19-chart">
         <canvas id="axes_line_chart"></canvas>

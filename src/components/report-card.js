@@ -1,5 +1,5 @@
-class ReportCard extends HTMLElement {
-  datas = {current: 123, changed: +0};
+export default class ReportCard extends HTMLElement {
+  datas = {current: 0, update: ''};
 
   constructor() {
     super();
@@ -18,9 +18,7 @@ class ReportCard extends HTMLElement {
     this.innerHTML = `
       <h4>${this.getAttribute('title')}</h4>
       <span style="font-size: 1.5em;">${this.datas.current}</span><br/>
-      <span style="font-size: 1em;">${this.datas.changed}</span>
+      <span style="font-size: 1em;">${this.datas.update}</span>
     `;
   }
 }
-
-customElements.define("report-card", ReportCard);
