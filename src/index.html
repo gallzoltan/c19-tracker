@@ -13,21 +13,24 @@
 
   <div class="search-bar">
     <div class="form-container">
-      <form action="">
-        <div id="country" class="form-item">
+      <form id="form" action="">
+        <!-- <div id="country" class="form-item">
           <input type="text" placeholder="Ország">
+        </div> -->
+        <div id="country" class="form-item">
+          <country-list></country-list>
         </div>
         <div id="date" class="form-item">
           <input type="date">
         </div>
         <div class="horizontal-spacer"></div>
         <div id="search" class="form-item">
-          <button type="submit">Keresés</button>
-        </div>
+          <button type="submit" id="submit">Keresés</button>
+        </div>        
       </form>
     </div>    
   </div>
-
+  
   <div class="content">
     <div class="report-container">
       <div class="report-item">
@@ -44,7 +47,7 @@
     <div id="loading"></div>
     
     <div class="chart-container">
-      <div class="c19-chart">
+      <div class="c19-chart">        
         <canvas id="axes_line_chart"></canvas>
       </div>
     </div>

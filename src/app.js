@@ -1,18 +1,31 @@
 import './scss/style.scss'
 import './scss/loader.scss'
 import covidApi from './services/covidApi';
-import ReportCard from './components/report-card.js'
+import ReportCard from './components/ReportCard.js'
+import CountryList from './components/CountryList';
 
 const loader = document.querySelector("#loading");
 
 window.addEventListener('DOMContentLoaded', () => {   
-  loadComponents();
+  loadComponents(); 
+  const form = document.getElementById('form'); 
+  const submitButton = document.getElementById('submit');
   displayLoading();    
-  renderCurrentDatas('hu');  
+  renderCurrentDatas('HU'); 
+
+  form.addEventListener('submit', e => {
+    e.preventDefault();   
+    const countries = document.getElementById('countries');
+    submitButton.disabled = true;
+    displayLoading();    
+    renderCurrentDatas(countries.value);
+    submitButton.disabled = false; 
+  }); 
 });
 
 const loadComponents = () => {
   customElements.define("report-card", ReportCard);
+  customElements.define("country-list", CountryList);
 }
 
 const renderCurrentDatas = (ab) => {
@@ -30,7 +43,8 @@ const renderCurrentDatas = (ab) => {
 
 const loadCurrentData = async (ab) => {
   try {
-    const result = await covidApi.getCurrentDatas(ab);    
+    const result = await covidApi.getCurrentDatas(ab); 
+    //console.log(result);
     return result;
   } catch (e) {
     console.error('Error loading current Covid data', e);

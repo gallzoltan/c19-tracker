@@ -41,6 +41,14 @@ body {
         padding: 0 8px;
         background-color: $primary-color;
       }
+      select {
+        height: 40px;
+        border: 1px solid #999;
+        border-radius: 4px;
+        width: 200px;
+        padding: 0 8px;
+        background-color: $primary-color;
+      }
     }
 
     .horizontal-spacer {
@@ -50,7 +58,7 @@ body {
     #country {
       flex: 3 1 auto;
       
-      input {
+      select {
         width: 100%;
       }
     }
