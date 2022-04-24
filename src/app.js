@@ -6,6 +6,7 @@ import CountryList from './components/CountryList';
 import Chart from 'chart.js/auto';
 
 const loader = document.querySelector("#loading");
+let covid_chart;
 
 window.addEventListener('DOMContentLoaded', () => {   
   registerComponents(); 
@@ -95,7 +96,6 @@ const loadHistoryData = async (ab) => {
   }
 }
 
-let covid_chart;
 function renderChart(ctx, cases, recovered, deaths) {
   if (typeof covid_chart !== 'undefined') {
     covid_chart.destroy();
