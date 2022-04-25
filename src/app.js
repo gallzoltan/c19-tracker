@@ -13,31 +13,6 @@ window.addEventListener('DOMContentLoaded', () => {
   const form = document.getElementById('form'); 
   const submitButton = document.getElementById('submit');  
   
-  // const labels = [
-  //   'January',
-  //   'February',
-  //   'March',
-  //   'April',
-  //   'May',
-  //   'June',
-  // ];
-
-  // const data = {
-  //   labels: labels,
-  //   datasets: [{
-  //     label: 'My First dataset',
-  //     backgroundColor: 'rgb(255, 99, 132)',
-  //     borderColor: 'rgb(255, 99, 132)',
-  //     data: [0, 10, 5, 2, 20, 30, 45],
-  //   }]
-  // };
-
-  // const config = {
-  //   type: 'line',
-  //   data: data,
-  //   options: {}
-  // };
-  // new Chart(document.getElementById('axes_line_chart'), config);
   displayLoading();    
   renderCurrentDatas('HU'); 
 
@@ -49,7 +24,7 @@ window.addEventListener('DOMContentLoaded', () => {
     renderCurrentDatas(countries.value);
     submitButton.disabled = false; 
   }); 
-});
+})
 
 const registerComponents = () => {
   customElements.define("report-card", ReportCard);
@@ -63,17 +38,28 @@ const renderCurrentDatas = (ab) => {
   const ctx = document.getElementById('axes_line_chart').getContext("2d");
   loadCurrentData(ab).then(res => {
     const local = Intl.NumberFormat('hu-HU');
-    cardConfirmed.setDatas({current: local.format(res.confirmed), update: res.updated});
-    cardRecovered.setDatas({current: local.format(res.recovered), update: res.updated});
-    cardDeaths.setDatas({current: local.format(res.deaths), update: res.updated});    
-
+    cardConfirmed.setDatas( { current: local.format(res.confirmed), update: res.updated } );
+    cardRecovered.setDatas( { current: local.format(res.recovered), update: res.updated } );
+    cardDeaths.setDatas( { current: local.format(res.deaths), update: res.updated } );    
+ 
     loadHistoryData(ab).then(res => {
-      console.log(res[0].All.dates);
-      renderChart(ctx, res[0].All.dates, res[1].All.dates, res[2].All.dates);
+      //console.log(res[0].All.dates);
+      const confirmed = filterDatas(res[0].All.dates);
+      const recovered = filterDatas(res[1].All.dates);
+      const deaths = filterDatas(res[2].All.dates);
+      renderChart(ctx, confirmed, recovered, deaths);
       hideLoading();
-    });
-    
+    });    
   });  
+}
+
+const filterDatas = (datas) => {
+  const from = Date.parse("2022-01-01");
+  const to = Date.parse(new Date());
+  //delete datas["2022-04-24"];
+  //Object.fromEntries(Object.entries(datas).filter(([key]) => key.includes('2022-')));
+
+  return Object.fromEntries(Object.entries(datas).filter(([key]) => (Date.parse(key) > from && Date.parse(key) < to) ));
 }
 
 const loadCurrentData = async (ab) => {
@@ -105,7 +91,7 @@ function renderChart(ctx, cases, recovered, deaths) {
     data: {
       datasets: [
         {
-          label: "Cases",
+          label: "Fertőzöttek",
           data: cases,
           fill: true,
           borderColor: "#FFF",
@@ -113,7 +99,7 @@ function renderChart(ctx, cases, recovered, deaths) {
           borderWitdth: 1
         },
         {
-          label: "Recovered",
+          label: "Gyógyultak",
           data: recovered,
           fill: false,
           borderColor: "#009688",
@@ -121,7 +107,7 @@ function renderChart(ctx, cases, recovered, deaths) {
           borderWitdth: 1
         },
         {
-          label: "Deaths",
+          label: "Elhunytak",
           data: deaths,
           fill: false,
           borderColor: "#f44336",

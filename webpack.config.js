@@ -13,7 +13,8 @@ module.exports = {
   plugins: [
     new CopyWebpackPlugin({
       patterns: [
-        { from: './src/index.html', to: DIST_DIR }
+        { from: './src/index.html', to: DIST_DIR },
+        { from: './src/favicon.ico', to: DIST_DIR }
       ]
     })
   ],

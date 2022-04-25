@@ -1,6 +1,7 @@
 const baseUrl = 'https://covid-api.mmediagroup.fr/v1';
 
 const covidApi = {
+  
   async getCurrentDatas(ab) {
     const response = await fetch(`${baseUrl}/cases?ab=${ab}`);
     if (response.status !== 200) {
@@ -20,16 +21,9 @@ const covidApi = {
     const response = Promise.all(
       urls.map( url => fetch(url).then(res => res.json()) )
     );
+    
     return await response;
-  }, 
-  
-  async getHistoryRecovered(ab) {
-    // /history?country=Germany&status=recovered
-  }, 
-
-  async getHistoryDeaths(ab) {
-    // /history?country=Germany&status=deaths
-  } 
+  }
 
 }
 export default covidApi;
