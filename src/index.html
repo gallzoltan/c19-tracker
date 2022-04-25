@@ -22,7 +22,7 @@
           <country-list></country-list>
         </div>
         <div id="date" class="form-item">
-          <input type="date">
+          <input type="date" id="date-input" required>
         </div>
         <div class="horizontal-spacer"></div>
         <div id="search" class="form-item">
@@ -33,6 +33,7 @@
   </div>
   
   <div class="content">
+    <div id="error-message" class="error-message" style="display: none;">Hiba történt az adatbetöltés közben</div>
     <div class="report-container">
       <div class="report-item">
         <report-card id="confirmed" title="Fertőzöttek száma"></report-card>        
