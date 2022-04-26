@@ -15,14 +15,14 @@
   <div class="search-bar">
     <div class="form-container">
       <form id="form" action="">
-        <!-- <div id="country" class="form-item">
-          <input type="text" placeholder="Ország">
-        </div> -->
         <div id="country" class="form-item">
           <country-list></country-list>
         </div>
-        <div id="date" class="form-item">
-          <input type="date" id="date-input" required>
+        <div class="form-item">
+          <input type="date" id="date-input-from" required> <span style="font-size: 13px;">-tól</span>          
+        </div>
+        <div class="form-item">
+          <input type="date" id="date-input-to" required> <span style="font-size: 13px;">-ig</span>          
         </div>
         <div class="horizontal-spacer"></div>
         <div id="search" class="form-item">

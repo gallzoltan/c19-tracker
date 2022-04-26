@@ -56,8 +56,7 @@ body {
     }
     
     #country {
-      flex: 3 1 auto;
-      
+      flex: 4 1 auto;      
       select {
         width: 100%;
       }
@@ -116,24 +115,13 @@ body {
       color: #424242;
       box-shadow: 0px 3px 15px rgba(0,0,0,0.2);
       border-radius: 10px;
-      // p {
-      //   font-weight: bold;
-      // }
-      
-      // .card-content {
-      //   display: flex;
-      //   flex-direction: column;
-      //   align-items: center;
-      //   gap: 20px;
-      //   font-size: 30px;
-      // }
     }  
   }
 
   .chart-container {
     display: flex;
     justify-content: center;
-    margin: 16px; 
+    margin: 16px 16px 0 16px; 
 
     .c19-chart {
       // display: block;

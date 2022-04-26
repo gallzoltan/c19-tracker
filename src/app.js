@@ -12,19 +12,24 @@ window.addEventListener('DOMContentLoaded', () => {
   registerComponents(); 
   const form = document.getElementById('form'); 
   const submitButton = document.getElementById('submit');
-  const datePicker = document.getElementById('date-input'); 
-  datePicker.max = getToday();  
+  const datePickerFrom = document.getElementById('date-input-from'); 
+  const datePickerTo = document.getElementById('date-input-to');
+
+  datePickerFrom.max = getToday();
+  datePickerTo.max = getToday();
+  datePickerFrom.value = "2022-01-01"
+  datePickerTo.value = getToday();  
   
   displayLoading();    
-  renderCurrentDatas('HU', "2022-01-01"); 
+  renderCurrentDatas('HU', datePickerFrom.value, datePickerTo.value); 
 
-  form.addEventListener('submit', e => {
-    e.preventDefault();   
+  form.addEventListener('submit', e => {       
     const countries = document.getElementById('countries');
+    e.preventDefault();
     
     submitButton.disabled = true;
     displayLoading();    
-    renderCurrentDatas(countries.value, datePicker.value);
+    renderCurrentDatas(countries.value, datePickerFrom.value, datePickerTo.value);
     submitButton.disabled = false; 
   }); 
 })
@@ -34,7 +39,7 @@ const registerComponents = () => {
   customElements.define("country-list", CountryList);
 }
 
-const renderCurrentDatas = (ab, beginDate) => {
+const renderCurrentDatas = (ab, beginDate, endDate) => {
   const errorMessage = document.getElementById('error-message');
   const cardConfirmed = document.getElementById('confirmed');
   const cardRecovered = document.getElementById('recovered');
@@ -48,9 +53,9 @@ const renderCurrentDatas = (ab, beginDate) => {
     cardDeaths.setDatas( { current: local.format(res.deaths), update: res.updated } );    
  
     loadHistoryData(ab).then(res => {
-      const confirmed = filterDatas(res[0].All.dates, beginDate);
-      const recovered = filterDatas(res[1].All.dates, beginDate);
-      const deaths = filterDatas(res[2].All.dates, beginDate);
+      const confirmed = filterDatas(res[0].All.dates, beginDate, endDate);
+      const recovered = filterDatas(res[1].All.dates, beginDate, endDate);
+      const deaths = filterDatas(res[2].All.dates, beginDate, endDate);
       renderChart(ctx, confirmed, recovered, deaths);
       hideLoading();
     }).catch(() => {
@@ -66,9 +71,9 @@ const renderCurrentDatas = (ab, beginDate) => {
   });  
 }
 
-const filterDatas = (datas, beginDate) => {
+const filterDatas = (datas, beginDate, endDate) => {
   const from = Date.parse(beginDate);
-  const to = Date.parse(new Date());
+  const to = Date.parse(endDate);
   const reversedKeys = Object.keys(datas).reverse();
   let result = {};
   reversedKeys.forEach(key => {  
