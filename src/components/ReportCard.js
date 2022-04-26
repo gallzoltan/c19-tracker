@@ -1,5 +1,8 @@
 export default class ReportCard extends HTMLElement {
-  datas = {current: 0, update: ''};
+  datas = {
+    current: 0, 
+    update: ''
+  };
 
   constructor() {
     super();

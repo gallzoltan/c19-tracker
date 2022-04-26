@@ -11,7 +11,7 @@ let covid_chart;
 window.addEventListener('DOMContentLoaded', () => {   
   registerComponents(); 
   const form = document.getElementById('form'); 
-  const submitButton = document.getElementById('submit');
+  const submitButton = document.getElementById('submit');  
   const datePickerFrom = document.getElementById('date-input-from'); 
   const datePickerTo = document.getElementById('date-input-to');
 
@@ -39,15 +39,14 @@ const registerComponents = () => {
   customElements.define("country-list", CountryList);
 }
 
-const renderCurrentDatas = (ab, beginDate, endDate) => {
-  const errorMessage = document.getElementById('error-message');
+const renderCurrentDatas = (ab, beginDate, endDate) => {  
   const cardConfirmed = document.getElementById('confirmed');
   const cardRecovered = document.getElementById('recovered');
   const cardDeaths= document.getElementById('deaths');
   const ctx = document.getElementById('axes_line_chart').getContext("2d");
   
   loadCurrentData(ab).then(res => {
-    const local = Intl.NumberFormat('hu-HU');
+    const local = Intl.NumberFormat('hu-HU');    
     cardConfirmed.setDatas( { current: local.format(res.confirmed), update: res.updated } );
     cardRecovered.setDatas( { current: local.format(res.recovered), update: res.updated } );
     cardDeaths.setDatas( { current: local.format(res.deaths), update: res.updated } );    
@@ -59,15 +58,13 @@ const renderCurrentDatas = (ab, beginDate, endDate) => {
       renderChart(ctx, confirmed, recovered, deaths);
       hideLoading();
     }).catch(() => {
-      hideLoading();
-      errorMessage.style.display = 'block';
-      setTimeout(() => errorMessage.style.display = 'none', 2000);
+      hideLoading();      
+      displayErrorMessage();
     }); 
 
   }).catch(() => {
     hideLoading();
-    errorMessage.style.display = 'block';
-    setTimeout(() => errorMessage.style.display = 'none', 2000);
+    displayErrorMessage();
   });  
 }
 
@@ -87,25 +84,26 @@ const filterDatas = (datas, beginDate, endDate) => {
 
 const loadCurrentData = async (ab) => {
   try {
-    const result = await covidApi.getCurrentDatas(ab); 
+    const result = await covidApi.getCurrentDatas(ab);
     return result;
   } catch (e) {
-    console.error('Error loading current Covid data', e);
-    throw e;
+      console.error('Error loading current Covid data', e);
+      throw e;
   }
 }
 
 const loadHistoryData = async (ab) => {
   try {
     const result = await covidApi.getHistoryAllState(ab);
+    const errorMessage = document.getElementById('error-message');
     return result;
-  } catch (e) {
-    console.error('Error loading history Covid data', e);
-    throw e;
+  } catch (e) {      
+      console.error('Error loading history Covid data', e);
+      throw e;
   }
 }
 
-function renderChart(ctx, cases, recovered, deaths) {
+const renderChart = (ctx, cases, recovered, deaths) => {
   if (typeof covid_chart !== 'undefined') {
     covid_chart.destroy();
   } 
@@ -145,6 +143,12 @@ function renderChart(ctx, cases, recovered, deaths) {
       maintainAspectRatio: false,
     }
   });
+}
+
+const displayErrorMessage = () => {
+  const errorMessage = document.getElementById('error-message');
+  errorMessage.style.display = 'block';
+  setTimeout(() => errorMessage.style.display = 'none', 2000);
 }
 
 const displayLoading = () => {
