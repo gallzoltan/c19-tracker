@@ -8,8 +8,16 @@
     "build": "webpack --config webpack.config.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gallzoltan/c19-tracker.git"
+  },
   "author": "gallz",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gallzoltan/c19-tracker/issues"
+  },
+  "homepage": "https://github.com/gallzoltan/c19-tracker#readme",
   "devDependencies": {
     "copy-webpack-plugin": "^10.2.4",
     "css-loader": "^6.7.1",
